@@ -299,8 +299,36 @@ Claude Code has three different input modes that control how it responds to your
 - **Search/Filter:** Keep typing after `@` to find files anywhere in the tree (e.g., `@fig` finds all files containing "fig")
 - **Select file:** Press **Enter** to select the highlighted file
 - **Cancel:** Press **Escape twice** to close the chooser
-- Claude will read and include the selected file content in the conversation
-- **Tip:** The search looks through the entire project tree below your current directory
+
+### Running Terminal Commands Within Claude Code
+
+**The Problem:** If you exit Claude Code (`/quit`) to run terminal commands, Claude loses all context about your conversation.
+
+**The Solution:** Use Claude's built-in command execution to run terminal commands while keeping your conversation context:
+
+**Method 1: Ask Claude to run commands for you** (Recommended)
+```
+Can you run `git status` and show me what's changed?
+```
+Claude will execute the command and explain the results in context.
+
+**Method 2: Use slash commands** (Advanced)
+```
+/help
+```
+Shows available slash commands like `/clear`, `/config`, etc.
+
+**⚠️ Common Confusion:** The `!` character works differently in Claude Code:
+- **NOT for direct command execution** - typing `!git status` won't work as expected
+- **Used in custom slash commands** - advanced feature for creating your own commands
+- **If you see weird behavior with `!`:** Just ask Claude to run the command instead
+
+**Best Practice:** Instead of trying to run terminal commands directly, just ask Claude:
+- ❌ Confusing: `!git status` 
+- ✅ Clear: "Run git status and explain what it shows"
+- ✅ Clear: "Check if my repository has any uncommitted changes"
+
+This way Claude runs the command, sees the output, and can explain it in the context of your conversation.
 
 ### Useful Commands
 ```bash
