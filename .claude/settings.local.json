@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.anthropic.com)",
+      "mcp__zapier__edit_tools",
+      "mcp__zapier__add_tools",
+      "mcp__zapier__google_docs_api_request_beta",
+      "Bash(node:*)",
+      "mcp__playwright__*",
+      "mcp__zapier__google_docs_create_document_from_text",
+      "Bash(chmod:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
