@@ -263,6 +263,32 @@ When you run `claude` without arguments, you enter interactive mode:
 - Press **Enter** to send the message
 - For multi-line prompts, use **Shift+Enter** for new lines without sending
 
+### Claude Code Input Modes (**Shift+Tab** to Switch)
+
+Claude Code has three different input modes that control how it responds to your requests. Think of these like the editing modes in Google Docs (Edit/Suggest/View), but for AI assistance:
+
+**🔧 Execute Mode (Default)**
+- Claude **immediately runs commands and makes changes** 
+- Best for: When you trust Claude and want things done quickly
+- **Use when:** "Just fix this bug" or "Set up my git repository"
+
+**📋 Plan Mode** 
+- Claude **creates a plan first, then asks for approval** before doing anything
+- Best for: Complex tasks where you want to review the approach first  
+- **Use when:** "Help me refactor this code" or "Set up a new project structure"
+
+**💬 Chat Mode**
+- Claude **only provides advice and explanations** - never runs commands
+- Best for: Learning, understanding code, or getting guidance
+- **Use when:** "Explain this error" or "What's the best way to approach this?"
+
+**How to switch modes:**
+- Press **Shift+Tab** to cycle through the three modes
+- The current mode shows at the bottom of your Claude Code interface
+- **Tip:** Start in Plan Mode when you're unsure - you can always approve Claude's plan and let it execute
+
+**Why this matters:** You stay in control! If Claude starts doing things too fast, press **Shift+Tab** to switch to Plan Mode and review its approach first.
+
 **Command History:**
 - **Up/Down arrows** - Browse through your previous prompts
 - Great for tweaking and re-running similar requests
