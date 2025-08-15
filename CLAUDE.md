@@ -42,7 +42,34 @@ This guide is designed for complete beginners and includes:
 ## Key Concepts Introduced
 
 - Command history navigation in Terminal
+- Tab completion for efficient path navigation
 - Git repository initialization and GitHub pushing
 - Using Claude Code for development assistance
 - Project configuration via CLAUDE.md files
 - Integration between local development and GitHub workflows
+
+## Target User Profile
+
+This documentation is specifically designed for **absolute beginners** who are:
+- **New to Terminal/command line** - May have never used Terminal before
+- **New to development workflows** - Haven't used git, GitHub, or development tools
+- **Intimidated by technical setup** - Need hand-holding through each step
+- **Prone to copy/paste errors** - Need warnings about multi-line commands and spacing
+- **Using macOS** - Guide leverages macOS-specific features and stable folder structure
+- **Want to use Claude Code** - Primary goal is getting Claude Code working as their AI assistant
+
+## Documentation Strategy
+
+The guide uses several key strategies to serve beginners:
+1. **Educational approach** - Explains what commands do and why they're needed
+2. **Error prevention** - Proactive warnings about common mistakes (copy/paste, spaces in paths)
+3. **Alternative methods** - Provides both manual commands and "ask Claude to help" approaches
+4. **Visual cues** - Uses Terminal symbols and keyboard shortcuts prominently
+5. **Tab completion emphasis** - Reduces typing errors and path complexity
+6. **Incremental complexity** - Builds from basic Terminal use to full git/GitHub workflows
+
+## Recent Improvements
+
+- **Claude Code Input Modes** (2024): Corrected documentation through empirical testing of Accept Edits (►►), Plan Mode (⏸), and Default modes
+- **Tab Completion** (2024): Added comprehensive Tab completion guidance to reduce path typing errors
+- **Dynamic Mode Switching** (2024): Documented how Plan Mode can automatically transition to other modes based on user choices
