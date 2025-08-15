@@ -19,6 +19,7 @@
 - **Edit previous commands:** Use **Up arrow**/**Down arrow** to find a command, then **Left**/**Right** arrows to edit it
 - **Clear current line:** **Cmd+C** (this cancels the current command, doesn't copy)
 - **Clear screen:** **Cmd+K** or type `clear` and press **Enter**
+- **Tab completion:** Press **Tab** to autocomplete file/folder names - huge timesaver!
 
 **⚠️ IMPORTANT - Copy/Paste Safety:**
 - **Only copy ONE LINE at a time** - copying multiple lines can cause weird errors
@@ -27,6 +28,16 @@
 - **Can't click to move cursor:** This isn't broken! Use **Left**/**Right** arrow keys instead
 
 **Pro tip:** The Terminal remembers hundreds of commands you've run. Use the **Up arrow** to quickly re-run or modify previous commands instead of retyping them!
+
+**🚀 Tab Completion Magic:**
+Tab completion is your best friend for navigating to folders without typing full paths or worrying about spaces:
+
+- Type `cd ~/Doc` then press **Tab** → automatically completes to `cd ~/Documents/`
+- Type `cd ~/Des` then press **Tab** → automatically completes to `cd ~/Desktop/`
+- Type `cd ~/Dow` then press **Tab** → automatically completes to `cd ~/Downloads/`
+- If multiple matches exist, press **Tab twice** to see all options
+
+**Why this matters:** You'll never have to worry about escaping spaces in "My Documents" or making typos in long folder names!
 
 ### Step 2: Switch to zsh (Required)
 
@@ -362,9 +373,10 @@ Now that you have Claude Code and GitHub CLI set up, let's walk through turning 
 Most likely, you already have some files you want to put on GitHub. Here's how to navigate to them:
 
 **Finding your project folder:**
-1. **If it's on your Desktop:** `cd ~/Desktop/your-folder-name`
-2. **If it's in Documents:** `cd ~/Documents/your-folder-name`
-3. **If you're not sure where it is:** 
+1. **If it's on your Desktop:** Type `cd ~/Des` + **Tab** → `cd ~/Desktop/` then type your folder name + **Tab**
+2. **If it's in Documents:** Type `cd ~/Doc` + **Tab** → `cd ~/Documents/` then type your folder name + **Tab**
+3. **Tab completion tip:** Start typing your folder name and press **Tab** - it will complete automatically!
+4. **If you're not sure where it is:** 
    - Open Finder, find your folder
    - Right-click the folder and choose "New Terminal at Folder"
    - This opens Terminal already in the right place!
