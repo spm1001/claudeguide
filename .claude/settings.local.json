@@ -9,7 +9,9 @@
       "mcp__playwright__*",
       "mcp__zapier__google_docs_create_document_from_text",
       "Bash(chmod:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)"
     ],
     "deny": [],
     "ask": [],
