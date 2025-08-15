@@ -265,29 +265,35 @@ When you run `claude` without arguments, you enter interactive mode:
 
 ### Claude Code Input Modes (**Shift+Tab** to Switch)
 
-Claude Code has three different input modes that control how it responds to your requests. Think of these like the editing modes in Google Docs (Edit/Suggest/View), but for AI assistance:
+Claude Code has different input modes that control how it responds to your requests. You can cycle through these modes by pressing **Shift+Tab**:
 
-**🔧 Execute Mode (Default)**
-- Claude **immediately runs commands and makes changes** 
-- Best for: When you trust Claude and want things done quickly
-- **Use when:** "Just fix this bug" or "Set up my git repository"
+**Default Mode (no label shown)**
+- Claude asks for approval on file modifications with options like "Yes/No/Always allow"
+- Balanced approach between speed and control
+- **Use when:** You want some oversight but don't need full planning
 
-**📋 Plan Mode** 
-- Claude **creates a plan first, then asks for approval** before doing anything
-- Best for: Complex tasks where you want to review the approach first  
-- **Use when:** "Help me refactor this code" or "Set up a new project structure"
+**►► Accept Edits On**
+- Claude **immediately executes commands and makes changes** without approval prompts
+- Most permissive mode - "fast forward" through all confirmations
+- **Use when:** You trust Claude completely and want maximum speed
 
-**💬 Chat Mode**
-- Claude **only provides advice and explanations** - never runs commands
-- Best for: Learning, understanding code, or getting guidance
-- **Use when:** "Explain this error" or "What's the best way to approach this?"
+**⏸ Plan Mode On**
+- Claude **creates a detailed plan first, then asks for approval** before doing anything
+- Most cautious mode - shows you the approach before execution
+- **Use when:** Complex tasks where you want to review the strategy first
+
+**Dynamic Mode Switching:**
+When you approve a plan in Plan Mode, you can choose:
+- **"Yes, and auto-accept edits"** - Switches to Accept Edits mode (►►) automatically
+- **"Yes, and manually approve edits"** - Continues with approval prompts
+- **"No, keep planning"** - Stays in Plan Mode for further refinement
 
 **How to switch modes:**
-- Press **Shift+Tab** to cycle through the three modes
+- Press **Shift+Tab** to cycle through the three modes manually
+- Plan Mode can automatically transition to other modes based on your approval choice
 - The current mode shows at the bottom of your Claude Code interface
-- **Tip:** Start in Plan Mode when you're unsure - you can always approve Claude's plan and let it execute
 
-**Why this matters:** You stay in control! If Claude starts doing things too fast, press **Shift+Tab** to switch to Plan Mode and review its approach first.
+**Why this matters:** The visual symbols tell the story - ►► means "fast forward past prompts", ⏸ means "pause for planning", and no symbol means "balanced with selective prompts".
 
 **Command History:**
 - **Up/Down arrows** - Browse through your previous prompts
