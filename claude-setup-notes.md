@@ -34,6 +34,12 @@ chsh -s /bin/zsh
 
 **Next:** Close Terminal completely (Cmd+Q) and reopen it.
 
+**Verify it worked:** After reopening Terminal, type:
+```bash
+echo $SHELL
+```
+You should see `/bin/zsh`. If you see `/bin/bash`, the change didn't take effect - try the command again.
+
 ### Step 3: Install Apple Command Line Tools
 
 These tools include git and other essentials that Claude Code needs:
@@ -101,10 +107,10 @@ claude --version
 ```
 
 **What you should see:**
-- Your macOS version 
-- Shell: /bin/zsh
-- Git version number
-- Claude version number
+- Your macOS version (any version is fine, but 10.15+ is recommended)
+- Shell: /bin/zsh (if you see /bin/bash, go back to Step 2)
+- Git version number (something like "git version 2.x.x")
+- Claude version number (something like "claude 0.x.x")
 
 **Final test:**
 ```bash
@@ -133,11 +139,16 @@ Claude learns from your codebase and adapts to your projects, so the more you us
 
 ---
 
-## Step 6: Install Homebrew (Recommended)
+## Step 6: Install Homebrew (Required for GitHub)
 
-**What is Homebrew?** A package manager that makes installing developer tools easier. We'll need it to install the GitHub CLI for working with repositories.
+**What is Homebrew?** A package manager that makes installing developer tools easier. We need it to install the GitHub CLI for working with repositories.
 
-**Why do we need this?** If you want to create projects and push them to GitHub (which most developers do), you'll need the GitHub CLI tool, which is easiest to install via Homebrew.
+**Why is this required?** If you want to create projects and push them to GitHub (which most developers do), you'll need the GitHub CLI tool. While you can use Claude Code without GitHub, you won't be able to:
+- Push code to GitHub repositories
+- Collaborate with others on projects
+- Follow modern development workflows
+
+The GitHub CLI is the simplest way to authenticate with GitHub - the alternatives (SSH keys, personal access tokens) are much more complex for beginners.
 
 ### Install Homebrew
 
@@ -272,29 +283,44 @@ claude --version
 
 ## Creating Your First Project with Git and GitHub
 
-Now that you have Claude Code and GitHub CLI set up, let's walk through creating a project and pushing it to GitHub. This is where Claude Code really shines!
+Now that you have Claude Code and GitHub CLI set up, let's walk through turning your local files into a GitHub repository. This is where Claude Code really shines!
 
-### Step 1: Create a Project Directory
+### Step 1: Navigate to Your Project
 
-First, let's create a directory for your project:
+Most likely, you already have some files you want to put on GitHub. Here's how to navigate to them:
+
+**Finding your project folder:**
+1. **If it's on your Desktop:** `cd ~/Desktop/your-folder-name`
+2. **If it's in Documents:** `cd ~/Documents/your-folder-name`
+3. **If you're not sure where it is:** 
+   - Open Finder, find your folder
+   - Right-click the folder and choose "New Terminal at Folder"
+   - This opens Terminal already in the right place!
+
+**Or if you're starting fresh**, create a new directory:
 
 ```bash
 mkdir my-first-project
 cd my-first-project
-```
-
-### Step 2: Add Some Files
-
-Create a simple file to get started:
-
-```bash
 echo "# My First Project" > README.md
 ```
 
-### Step 3: Let Claude Help You Set Up the Repository
+**Tip:** You can always type `pwd` (print working directory) to see exactly where you are, and `ls` to see what files are in the current folder.
 
-Here's where it gets interesting! Start Claude Code and ask it to help:
+### Step 2: Set Up the Git Repository
 
+You have two approaches here:
+
+**Option A: Do it manually** (good for learning)
+```bash
+git init                    # Initialize git repository
+git add .                   # Add all files to staging
+git commit -m "Initial commit"   # Create first commit
+```
+
+**Option B: Ask Claude to help** (recommended for beginners)
+
+Start Claude Code and ask it to help:
 ```bash
 claude
 ```
@@ -305,11 +331,13 @@ Help me turn this directory into a git repository and create a CLAUDE.md file fo
 ```
 
 **What Claude will do:**
-- Run `git init` to initialize the repository
+- Run the git commands for you
 - Use the `/init` command to analyze your project and create a CLAUDE.md file
-- Guide you through the setup process
+- Explain each step as it goes
 
-### Step 4: Authenticate with GitHub
+### Step 3: Authenticate with GitHub
+
+**Don't have a GitHub account yet?** Create one at [github.com](https://github.com) first - it's free!
 
 Before pushing to GitHub, you need to authenticate:
 
@@ -324,26 +352,38 @@ gh auth login
 4. Choose "Login with a web browser"
 5. Follow the prompts to authenticate in your browser
 
-### Step 5: Create a GitHub Repository
+### Step 4: Create a GitHub Repository
 
 You can either:
 
-**Option A: Ask Claude to help**
-```
-Help me create a GitHub repository and push my code
-```
-
-**Option B: Do it manually**
+**Option A: Do it manually** (understanding the commands)
 ```bash
+# Create the repository on GitHub and set up the connection
 gh repo create my-first-project --public --source=. --remote=origin --push
 ```
 
-**What this does:**
-- Creates a new public repository on GitHub called "my-first-project"
-- Sets up the remote origin
-- Pushes your code to GitHub
+**Breaking down this command:**
+- `gh repo create` - Creates a new repository on GitHub
+- `my-first-project` - The name of your repository
+- `--public` - Makes it public (use `--private` for private repos)
+- `--source=.` - Uses current directory as source
+- `--remote=origin` - Sets up GitHub as your "origin" remote
+- `--push` - Pushes your code immediately
 
-### Step 6: Verify Everything Worked
+**Option B: Ask Claude to help** (recommended)
+```
+Help me create a GitHub repository and push my code. I want it to be public and called "my-first-project"
+```
+
+**What Claude will do:**
+- Run the GitHub CLI commands for you
+- Explain what each flag does
+- Handle any errors that come up
+- Verify the connection worked
+
+**Important:** Either way, this sets GitHub as your "origin" remote, which allows you to push and pull changes between your local files and GitHub.
+
+### Step 5: Verify Everything Worked
 
 Check that everything is set up correctly:
 
@@ -358,13 +398,25 @@ You should see your GitHub repository URL and a clean working directory.
 
 ### Getting Help from Claude
 
-Remember, at any point in this process, you can ask Claude for help:
-- "How do I commit my changes?"
-- "Help me push this to GitHub"
-- "What does this git error mean?"
-- "Create a .gitignore file for my Python project"
+Remember, at any point in this process, you can ask Claude for help. Here are examples of both manual commands and how to ask Claude:
 
-Claude understands git, GitHub, and development workflows, so don't hesitate to ask for guidance!
+**Making changes and committing:**
+- Manual: `git add . && git commit -m "Your commit message"`
+- Ask Claude: "Help me commit my changes with a good commit message"
+
+**Pushing changes:**
+- Manual: `git push origin main`
+- Ask Claude: "Help me push my latest changes to GitHub"
+
+**Understanding errors:**
+- Manual: Read git documentation or Stack Overflow
+- Ask Claude: "I got this error: [paste error message]. What does it mean?"
+
+**Project setup:**
+- Manual: Research .gitignore templates online
+- Ask Claude: "Create a .gitignore file for my Python project"
+
+**The advantage of asking Claude:** It explains what the commands do, adapts to your specific situation, and helps you learn while getting things done.
 
 ---
 
