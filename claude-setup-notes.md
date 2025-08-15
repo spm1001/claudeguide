@@ -7,7 +7,7 @@
 ### Step 1: Open Terminal
 
 1. Press **Cmd+Space** to open Spotlight search
-2. Type "Terminal" and press Enter
+2. Type "Terminal" and press **Enter**
 3. A black or white window will open - this is your Terminal
 
 **Terminal Basics:**
@@ -16,29 +16,41 @@
 - **Paste text:** **Cmd+V** (if this doesn't work, try right-clicking and selecting "Paste")
 - **Run a command:** Type it and press **Enter**
 - **Command history:** Press **Up arrow** to cycle through previous commands you've run
-- **Edit previous commands:** Use Up arrow to find a command, then Left/Right arrows to edit it
+- **Edit previous commands:** Use **Up arrow**/**Down arrow** to find a command, then **Left**/**Right** arrows to edit it
 - **Clear current line:** **Cmd+C** (this cancels the current command, doesn't copy)
-- **Clear screen:** **Cmd+K** or type `clear` and press Enter
+- **Clear screen:** **Cmd+K** or type `clear` and press **Enter**
 
-**Pro tip:** The Terminal remembers hundreds of commands you've run. Use the Up arrow to quickly re-run or modify previous commands instead of retyping them!
+**⚠️ IMPORTANT - Copy/Paste Safety:**
+- **Only copy ONE LINE at a time** - copying multiple lines can cause weird errors
+- **If you see `dquote>` or `>` prompts:** You've pasted incomplete text. Press **Ctrl+C** to cancel, then try again
+- **If Terminal looks "stuck":** Press **Ctrl+C** to cancel the current command and get back to normal
+- **Can't click to move cursor:** This isn't broken! Use **Left**/**Right** arrow keys instead
+
+**Pro tip:** The Terminal remembers hundreds of commands you've run. Use the **Up arrow** to quickly re-run or modify previous commands instead of retyping them!
 
 ### Step 2: Switch to zsh (Required)
 
-Modern macOS uses zsh as the default shell. We'll ensure you're using it:
+**Why this matters:** If you've migrated between Mac computers, you might still be using the old `bash` shell. Claude Code works best with `zsh` (the modern default).
 
+**Check what you're currently using:**
+```bash
+echo $SHELL
+```
+
+**If you see `/bin/bash`, switch to zsh:**
 ```bash
 chsh -s /bin/zsh
 ```
 
 **What happens:** You might be asked for your Mac password (the one you use to log in).
 
-**Next:** Close Terminal completely (Cmd+Q) and reopen it.
+**Next:** Close Terminal completely (**Cmd+Q**) and reopen it.
 
 **Verify it worked:** After reopening Terminal, type:
 ```bash
 echo $SHELL
 ```
-You should see `/bin/zsh`. If you see `/bin/bash`, the change didn't take effect - try the command again.
+You should see `/bin/zsh`. If you still see `/bin/bash`, try the `chsh` command again and make sure you restart Terminal completely.
 
 ### Step 3: Install Apple Command Line Tools
 
@@ -92,7 +104,7 @@ claude --version
    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
    ```
 
-2. Restart Terminal completely (Cmd+Q then reopen)
+2. Restart Terminal completely (**Cmd+Q** then reopen)
 3. Try `claude --version` again
 
 ### Step 5: Final Verification
@@ -159,7 +171,7 @@ The GitHub CLI is the simplest way to authenticate with GitHub - the alternative
 **What will happen:**
 
 1. You'll be asked for your Mac password
-2. Press **Enter** when it asks "Press RETURN to continue"
+2. Press **Enter** when it asks "Press **Return** to continue"
 3. Wait 5-15 minutes for installation
 
 ### Add Homebrew to your PATH
@@ -221,7 +233,7 @@ Now that Claude Code is installed, here are some useful features and CLI basics 
 
 ### Pasting Images
 You can paste images directly from your clipboard into Claude Code prompts:
-1. Copy an image to your clipboard (Cmd+C from any app, or **Cmd+Shift+Ctrl+4** for screenshot to clipboard)
+1. Copy an image to your clipboard (**Cmd+C** from any app, or **Cmd+Shift+Ctrl+4** for screenshot to clipboard)
 2. In the Claude Code prompt, just paste with **Ctrl+V** (note: Ctrl, not Cmd in the prompt)
 3. Claude can analyze screenshots, diagrams, code snippets, etc.
 
@@ -257,7 +269,7 @@ When you run `claude` without arguments, you enter interactive mode:
 
 **File References:**
 - Type `@` to see a searchable list of files in your project tree
-- **Navigate the list:** Use arrow keys to highlight files (purple highlight shows selection)
+- **Navigate the list:** Use **arrow keys** to highlight files (purple highlight shows selection)
 - **Search/Filter:** Keep typing after `@` to find files anywhere in the tree (e.g., `@fig` finds all files containing "fig")
 - **Select file:** Press **Enter** to select the highlighted file
 - **Cancel:** Press **Escape twice** to close the chooser
@@ -307,7 +319,55 @@ echo "# My First Project" > README.md
 
 **Tip:** You can always type `pwd` (print working directory) to see exactly where you are, and `ls` to see what files are in the current folder.
 
-### Step 2: Set Up the Git Repository
+### Step 2: Configure Git Identity (Important!)
+
+Before creating commits, git needs to know who you are. **Important:** Using your real email address will make it publicly visible in your commit history on GitHub!
+
+**First, check your current git configuration:**
+```bash
+git config --global user.name
+git config --global user.email
+```
+
+If these return nothing or show unwanted information, you need to set them up.
+
+**Option A: Set up manually with privacy protection**
+
+1. **Get your GitHub noreply email address:**
+   - Go to [github.com/settings/emails](https://github.com/settings/emails)
+   - Look for your noreply address (looks like `123456789+username@users.noreply.github.com`)
+
+2. **Configure git:**
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "123456789+username@users.noreply.github.com"
+```
+
+3. **Set up global gitignore (recommended for Mac users):**
+```bash
+echo .DS_Store >> ~/.gitignore_global
+git config --global core.excludesfile ~/.gitignore_global
+```
+
+**Option B: Ask Claude to help** (recommended)
+
+Start Claude Code and ask:
+```
+Help me set up git configuration for macOS, including privacy settings and .DS_Store handling
+```
+
+**What Claude will do:**
+- Check your current git configuration
+- Guide you to find your GitHub noreply email
+- Set up user identity and global gitignore
+- Explain why each setting matters
+
+**Why this matters:**
+- **Identity:** Without user config, git will refuse to create commits
+- **Privacy:** Using your real email makes it visible to anyone who views your GitHub repositories
+- **Mac-specific:** `.DS_Store` files are created by macOS and shouldn't be committed to repositories
+
+### Step 3: Set Up the Git Repository
 
 You have two approaches here:
 
@@ -325,6 +385,8 @@ Start Claude Code and ask it to help:
 claude
 ```
 
+**⚠️ Important:** You're now in Claude Code's interactive mode - this is like a chat interface inside Terminal. You can't click to move the cursor here either!
+
 In the Claude prompt, you can ask:
 ```
 Help me turn this directory into a git repository and create a CLAUDE.md file for it
@@ -335,7 +397,9 @@ Help me turn this directory into a git repository and create a CLAUDE.md file fo
 - Use the `/init` command to analyze your project and create a CLAUDE.md file
 - Explain each step as it goes
 
-### Step 3: Authenticate with GitHub
+**Key point:** If you exit Claude Code (type `/quit`) and restart it later, Claude won't remember this conversation. Each time you start `claude`, it starts fresh.
+
+### Step 4: Authenticate with GitHub
 
 **Don't have a GitHub account yet?** Create one at [github.com](https://github.com) first - it's free!
 
@@ -352,7 +416,7 @@ gh auth login
 4. Choose "Login with a web browser"
 5. Follow the prompts to authenticate in your browser
 
-### Step 4: Create a GitHub Repository
+### Step 5: Create a GitHub Repository
 
 You can either:
 
@@ -383,7 +447,7 @@ Help me create a GitHub repository and push my code. I want it to be public and 
 
 **Important:** Either way, this sets GitHub as your "origin" remote, which allows you to push and pull changes between your local files and GitHub.
 
-### Step 5: Verify Everything Worked
+### Step 6: Verify Everything Worked
 
 Check that everything is set up correctly:
 
@@ -464,6 +528,79 @@ claude --help
 claude
 ```
 
+---
+
+## Troubleshooting Common Errors
+
+### Terminal Prompt Issues
+
+**Problem:** You see weird prompts like `dquote>` or `>` instead of your normal prompt
+
+**Cause:** Usually from copying/pasting incomplete commands or commands with unmatched quotes
+
+**Solution:**
+1. Press **Ctrl+C** to cancel the current command
+2. You should see your normal prompt return
+3. Try typing the command again, carefully
+
+### Copy/Paste Problems
+
+**Problem:** Commands seem to work but produce unexpected results
+
+**Cause:** Copying multiple lines at once or copying invisible characters
+
+**Solutions:**
+- **Only copy one line at a time** from these instructions
+- If copying from a website, paste into a text editor first, then copy from there
+- Type commands manually if copy/paste continues to cause issues
+
+### "Command not found" Errors
+
+**Problem:** `claude: command not found` even after installation
+
+**Solutions:**
+1. **Restart Terminal completely:** **Cmd+Q** then reopen (most common fix)
+2. Check if installed correctly: `ls ~/.local/bin/claude`
+3. If file exists, add to PATH:
+   ```bash
+   echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+   ```
+4. Restart Terminal again
+
+**Problem:** `gh: command not found`
+
+**Solution:** Make sure Homebrew installed correctly:
+```bash
+brew --version
+```
+If this fails, Homebrew didn't install properly. Try the Homebrew installation step again.
+
+### Git Configuration Errors
+
+**Problem:** `Please tell me who you are` when trying to commit
+
+**Solution:** You skipped the git configuration step. Go back to Step 2 in the repository creation section and set up your git identity.
+
+**Problem:** Permission denied when pushing to GitHub
+
+**Solution:** You haven't authenticated with GitHub. Run:
+```bash
+gh auth login
+```
+
+### When to Ask for Help
+
+**Don't struggle alone!** If you encounter any error:
+
+1. **Try the specific solutions above first**
+2. **Ask Claude for help:** Start `claude` and describe the error you're seeing
+3. **Remember:** Claude starts fresh each time, so describe your situation completely
+
+**Example of asking Claude for help:**
+```
+I'm setting up git for the first time and got this error: [paste the exact error message here]
+```
+
 ## Troubleshooting
 
 ### Installation Issues
@@ -478,13 +615,13 @@ claude
 
 **Problem:** "claude: command not found" after installation
 
-- **Solution:** Restart Terminal completely (Cmd+Q then reopen)
+- **Solution:** Restart Terminal completely (**Cmd+Q** then reopen)
 
 #### Shell Environment Issues
 
 **Problem:** Commands work in one terminal tab but not another
 
-- **Solution:** Restart Terminal completely (Cmd+Q then reopen)
+- **Solution:** Restart Terminal completely (**Cmd+Q** then reopen)
 
 **Problem:** "command not found" after installation
 
@@ -492,14 +629,14 @@ claude
 
 #### Copy/Paste Issues in Terminal
 
-**Problem:** Cmd+V doesn't work in Terminal
+**Problem:** **Cmd+V** doesn't work in Terminal
 
 - **Solution:** Right-click and select "Paste" instead
 
 ### Common Mistakes to Avoid
 
 1. **Using sudo** - Don't use `sudo` with these installation commands
-2. **Not restarting Terminal** - Always restart Terminal (Cmd+Q then reopen) after installations
+2. **Not restarting Terminal** - Always restart Terminal (**Cmd+Q** then reopen) after installations
 3. **Skipping steps** - Follow the steps in order, don't skip ahead
 
 ### Getting Help
